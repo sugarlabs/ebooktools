@@ -23,7 +23,7 @@ import subprocess
 def make_djvus(filename):
 
     subprocess.call(["c44", filename])
-    print filename
+    print 'filename', filename
     return
 
 if __name__ == "__main__":
