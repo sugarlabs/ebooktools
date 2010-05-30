@@ -28,6 +28,8 @@ JPEG_QUALITY = 80
 
 def resize_image(filename):
 
+    filename_tuple = filename.split('.')
+    out_filename = filename_tuple[0] + '.jpg'
     print '%s file size before conversion: %d KB' %  (filename, os.stat(filename).st_size / 1024)
     im = pygame.image.load(filename)
     image_width, image_height = im.get_size()
@@ -37,13 +39,13 @@ def resize_image(filename):
         resize_to_width = image_width
     try:
         scaled_pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(filename, resize_to_width, ARBITRARY_LARGE_HEIGHT)
-        scaled_pixbuf.save(filename + '.jpg', "jpeg", {"quality":"%d" % JPEG_QUALITY})
+        scaled_pixbuf.save(out_filename, "jpeg", {"quality":"%d" % JPEG_QUALITY})
     except:
         print 'File could not be converted'
-    print '%s file size after conversion %d KB' % (filename, os.stat(filename + '.jpg').st_size /1024)
-    im = pygame.image.load(filename + '.jpg')
+    print '%s file size after conversion %d KB' % (out_filename, os.stat(out_filename).st_size /1024)
+    im = pygame.image.load(out_filename)
     image_width, image_height = im.get_size()
-    print '%s image size after conversion: %d x %d' % (filename + '.jpg',  image_width,  image_height)
+    print '%s image size after conversion: %d x %d' % (out_filename,  image_width,  image_height)
     print ''
     return
 
