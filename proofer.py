@@ -20,6 +20,7 @@
 
 import sys
 import os
+import string
 import gtk
 import getopt
 import pango
@@ -79,8 +80,9 @@ class Proofer():
 
     def read_file(self, filename):
         "Read the text file"
+        text_filename = self.find_text_file(filename)
         self.window.set_title("Proofer " + filename)
-        etext_file = open(filename,"r")
+        etext_file = open(text_filename,"r")
         textbuffer = self.textview.get_buffer()
         text = ''
         line = ''
@@ -93,8 +95,15 @@ class Proofer():
         self.textview.set_buffer(textbuffer)
         etext_file.close()
 
+    def find_text_file(self, filename):
+        filename_tuple = filename.split('.')
+        text_filename = filename_tuple[0] + '.txt'
+        text_filename = string.replace(text_filename, 'pngs', 'text', 1)
+        return text_filename
+
     def save_current_file(self, filename):
-        f = open(filename, 'w')
+        text_filename = self.find_text_file(filename)
+        f = open(text_filename, 'w')
         textbuffer = self.textview.get_buffer()
         text =  textbuffer.get_text(textbuffer.get_start_iter(),  textbuffer.get_end_iter())
         try:
@@ -106,10 +115,7 @@ class Proofer():
 
     def show_image(self, filename):
         "display a resized image in a full screen window"
-        
-        filename_tuple = filename.split('.')
-        image_filename = filename_tuple[0] + '.png'
-        scaled_pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image_filename, IMAGE_WIDTH, ARBITRARY_LARGE_HEIGHT)
+        scaled_pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(filename, IMAGE_WIDTH, ARBITRARY_LARGE_HEIGHT)
         self.image.set_from_pixbuf(scaled_pixbuf)
         self.image.show()
 
@@ -126,6 +132,7 @@ class Proofer():
         self.window.set_border_width(0)
         self.scrolled_window = gtk.ScrolledWindow(hadjustment=None, \
                                                   vadjustment=None)
+        self.scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         self.textview = gtk.TextView()
         self.textview.set_editable(True)
         self.textview.set_left_margin(50)
