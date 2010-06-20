@@ -20,7 +20,6 @@
 
 import sys
 import os
-import string
 import gtk
 import getopt
 import pango
@@ -32,12 +31,11 @@ ARBITRARY_LARGE_HEIGHT = 10000
 class Proofer():
 
     def keypress_cb(self, widget, event):
-        "Respond when the user presses one of the arrow keys"
         keyname = gtk.gdk.keyval_name(event.keyval)
-        if keyname == 'plus':
+        if keyname == 'F10':
             self.font_increase()
             return True
-        if keyname == 'minus':
+        if keyname == 'F9':
             self.font_decrease()
             return True
         if keyname == 'Page_Up' :
@@ -98,14 +96,15 @@ class Proofer():
     def find_text_file(self, filename):
         filename_tuple = filename.split('.')
         text_filename = filename_tuple[0] + '.txt'
-        text_filename = string.replace(text_filename, 'pngs', 'text', 1)
+        text_filename = '../text/' + text_filename
         return text_filename
 
     def save_current_file(self, filename):
         text_filename = self.find_text_file(filename)
         f = open(text_filename, 'w')
         textbuffer = self.textview.get_buffer()
-        text =  textbuffer.get_text(textbuffer.get_start_iter(),  textbuffer.get_end_iter())
+        text =  textbuffer.get_text(textbuffer.get_start_iter(),  
+                                    textbuffer.get_end_iter())
         try:
             f.write(text)
         finally:
@@ -115,7 +114,8 @@ class Proofer():
 
     def show_image(self, filename):
         "display a resized image in a full screen window"
-        scaled_pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(filename, IMAGE_WIDTH, ARBITRARY_LARGE_HEIGHT)
+        scaled_pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(filename, 
+                            IMAGE_WIDTH, ARBITRARY_LARGE_HEIGHT)
         self.image.set_from_pixbuf(scaled_pixbuf)
         self.image.show()
 
@@ -130,14 +130,17 @@ class Proofer():
         self.window.set_title("Proofer " + args[0])
         self.window.set_size_request(1200, 600)
         self.window.set_border_width(0)
-        self.scrolled_window = gtk.ScrolledWindow(hadjustment=None, \
+        self.scrolled_window = gtk.ScrolledWindow(
+                                                  hadjustment=None, \
                                                   vadjustment=None)
-        self.scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        self.scrolled_window.set_policy(gtk.POLICY_NEVER, 
+                                        gtk.POLICY_AUTOMATIC)
         self.textview = gtk.TextView()
         self.textview.set_editable(True)
         self.textview.set_left_margin(50)
         self.textview.set_cursor_visible(True)
-        self.textview.connect("key_press_event", self.keypress_cb)
+        self.textview.connect("key_press_event", 
+                              self.keypress_cb)
         self.font_desc = pango.FontDescription("sans 12")
         self.textview.modify_font(self.font_desc)
         self.scrolled_window.add(self.textview)
@@ -147,8 +150,8 @@ class Proofer():
         self.window.show()
         
         self.scrolled_image = gtk.ScrolledWindow()
-        self.scrolled_image.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-        self.scrolled_image.props.shadow_type = gtk.SHADOW_NONE
+        self.scrolled_image.set_policy(gtk.POLICY_NEVER, 
+                                       gtk.POLICY_AUTOMATIC)
         self.image = gtk.Image()
         self.image.show()
         self.show_image(args[0])
