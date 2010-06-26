@@ -89,6 +89,12 @@ class Proofer():
             if not line:
                 break
             text = text + unicode(line, 'iso-8859-1')
+        text = text.replace("'I`",  'T')
+        text = text.replace("'|`",  'T')
+        text = text.replace("l`",  'f')
+        text = text.replace("I`",  'f')
+        text = text.replace("t`",  'f')
+        text = text.replace("ll",  'H')
         textbuffer.set_text(text)
         self.textview.set_buffer(textbuffer)
         etext_file.close()
@@ -141,7 +147,7 @@ class Proofer():
         self.textview.set_cursor_visible(True)
         self.textview.connect("key_press_event", 
                               self.keypress_cb)
-        self.font_desc = pango.FontDescription("sans 12")
+        self.font_desc = pango.FontDescription("courier 12")
         self.textview.modify_font(self.font_desc)
         self.scrolled_window.add(self.textview)
         self.read_file(args[0])
