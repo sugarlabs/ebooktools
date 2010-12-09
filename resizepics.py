@@ -16,42 +16,53 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+import glob
 import getopt
 import sys
 import os
 import gtk
 import pygame
 
-SCREEN_WIDTH = 900
+SCREEN_WIDTH = 1400
 ARBITRARY_LARGE_HEIGHT = 10000
-JPEG_QUALITY = 80
+JPEG_QUALITY = 90
 
 def resize_image(filename):
 
     filename_tuple = filename.split('.')
     out_filename = filename_tuple[0] + '.jpg'
-    print '%s file size before conversion: %d KB' %  (filename, os.stat(filename).st_size / 1024)
+    print '%s file size before conversion: %d KB' %  (
+            filename, os.stat(filename).st_size / 1024)
     im = pygame.image.load(filename)
     image_width, image_height = im.get_size()
-    print '%s image size before conversion: %d x %d' %  (filename,   image_width,  image_height)
+    print '%s image size before conversion: %d x %d' %  (
+            filename,   image_width,  image_height)
     resize_to_width = SCREEN_WIDTH
     if image_width <= SCREEN_WIDTH:
         resize_to_width = image_width
     try:
-        scaled_pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(filename, resize_to_width, ARBITRARY_LARGE_HEIGHT)
-        scaled_pixbuf.save(out_filename, "jpeg", {"quality":"%d" % JPEG_QUALITY})
+        scaled_pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(
+            filename, resize_to_width, ARBITRARY_LARGE_HEIGHT)
+        scaled_pixbuf.save(out_filename, "jpeg", 
+                           {"quality":"%d" % JPEG_QUALITY})
     except:
         print 'File could not be converted'
-    print '%s file size after conversion %d KB' % (out_filename, os.stat(out_filename).st_size /1024)
+    print '%s file size after conversion %d KB' % (
+            out_filename, os.stat(out_filename).st_size /1024)
     im = pygame.image.load(out_filename)
     image_width, image_height = im.get_size()
-    print '%s image size after conversion: %d x %d' % (out_filename,  image_width,  image_height)
+    print '%s image size after conversion: %d x %d' % (
+            out_filename,  image_width,  image_height)
     print ''
     return
 
 if __name__ == "__main__":
     try:
         opts, args = getopt.getopt(sys.argv[1:], "")
+        if len(args) == 1:
+            print 'using glob'
+            args = glob.glob(args[0])
+            args.sort()
         i = 0
         while i < len(args):
             success = resize_image(args[i])

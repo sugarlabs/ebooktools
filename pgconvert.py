@@ -19,8 +19,8 @@
 import getopt
 import sys
 
-# This is a script to take the a file in PG format and convert it to a text file that does
-# not have newlines at the end of each line.
+# This is a script to take the a file in PG format and convert it to a text 
+# file that does not have newlines at the end of each line.
 
 def convert(file_path,  output_path):
 

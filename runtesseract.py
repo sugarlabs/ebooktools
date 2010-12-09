@@ -16,6 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+import glob
 import getopt
 import sys
 import subprocess
@@ -31,6 +32,10 @@ def run_tesseract(filename):
 if __name__ == "__main__":
     try:
         opts, args = getopt.getopt(sys.argv[1:], "")
+        if len(args) == 1:
+            print 'using glob'
+            args = glob.glob(args[0])
+            args.sort()
         i = 0
         while i < len(args):
             run_tesseract(args[i])

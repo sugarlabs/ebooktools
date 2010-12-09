@@ -18,6 +18,7 @@
 # 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+import glob
 import sys
 import os
 import gtk
@@ -102,7 +103,6 @@ class Proofer():
     def find_text_file(self, filename):
         filename_tuple = filename.split('.')
         text_filename = filename_tuple[0] + '.txt'
-        text_filename = '../text/' + text_filename
         return text_filename
 
     def save_current_file(self, filename):
@@ -137,7 +137,7 @@ class Proofer():
         self.window.set_size_request(1200, 600)
         self.window.set_border_width(0)
         self.scrolled_window = gtk.ScrolledWindow(
-                                                  hadjustment=None, \
+                                                  hadjustment=None,
                                                   vadjustment=None)
         self.scrolled_window.set_policy(gtk.POLICY_NEVER, 
                                         gtk.POLICY_AUTOMATIC)
@@ -178,6 +178,10 @@ class Proofer():
 if __name__ == "__main__":
     try:
         opts, args = getopt.getopt(sys.argv[1:], "")
+        if len(args) == 1:
+            print 'using glob'
+            args = glob.glob(args[0])
+            args.sort()
         Proofer().main(args)
     except getopt.error, msg:
         print msg
