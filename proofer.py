@@ -147,7 +147,7 @@ class Proofer():
         self.textview.set_cursor_visible(True)
         self.textview.connect("key_press_event", 
                               self.keypress_cb)
-        self.font_desc = pango.FontDescription("courier 12")
+        self.font_desc = pango.FontDescription("monospace 12")
         self.textview.modify_font(self.font_desc)
         self.scrolled_window.add(self.textview)
         self.read_file(args[0])
