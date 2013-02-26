@@ -1,0 +1,9 @@
+*.html
+*.htm
+*.xhtml
+*.e4p
+*.pyc
+*.epub
+*.mobi
+.eric4project
+
