@@ -1,0 +1,1 @@
+./striphtml.py | sed 's_<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">__' | sed 's/<span>//g' | sed 's_</span>__g' | sed 's_<h1>_<hr class="sigilChapterBreak" /><h1>_' | sed 's_<hr class="sigilChapterBreak" /><h1>Contents</h1>_<h1>Contents</h1>_' | sed 's/<p align="CENTER">/<p style="text-align: center">/' > TOC.xhtml
