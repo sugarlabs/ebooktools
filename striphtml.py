@@ -4,7 +4,7 @@ from BeautifulSoup import  BeautifulSoup
 def _attr_name_whitelisted(attr_name,  attr_value):
     if attr_name.lower() == "align" and attr_value.lower() == "center":
         return True
-    elif attr_name.lower() == "style" and attr_value == "margin-left: 0.5in; margin-right: 0.5in; margin-top: 0.1in; margin-bottom: 0.18in; page-break-before: auto":
+    elif attr_name.lower() == "class" and attr_value == "blockquote":
         return True
     else:
         return False
@@ -30,6 +30,7 @@ print "<style type='text/css'>"
 print "@font-face {\n    font-family: Yataghan;\n    src: url('../Fonts/yataghan.ttf');\n }"
 print "@font-face {\n    font-family: Akashi;\n    src: url('../Fonts/akashi.ttf');\n }"
 print "p {\n    text-align: left;\n      text-indent: 0;\n    margin-bottom: .5em;\n  }\n  h1,h2,h3 {\n    font-family: Yataghan; text-align: center; margin-top: 3em; margin-bottom: .5em;    clear: both;  }" 
+print "p.blockquote {\n    text-align: left;\n      text-indent: 0;\n    margin-bottom: .5em;\n    margin-left: .5in;\n    margin-right: .5in;  }" 
 print "</style>\n<head>\n<body>"
 
 print "<h1>Contents</h1>"
