@@ -10,7 +10,7 @@ def _attr_name_whitelisted(attr_name,  attr_value):
         return False
 
 # remove these tags, complete with contents.
-blacklist = ["head",  "div" ]
+blacklist = ["head" ]
     
 striplist = [ "p",  "h1",  "h2",  "h3" ]
 
@@ -24,14 +24,11 @@ whitelist = [
 
 soup = BeautifulSoup(open("input.html"))
 
-print "<html>\n<head>\n<meta http-equiv=\"CONTENT-TYPE\" content=\"text/html; charset=UTF-8\">"
+print "<html>\n<head>\n"
+print "<meta http-equiv=\"CONTENT-TYPE\" content=\"text/html; charset=UTF-8\">"
 print soup.title
-print "<style type='text/css'>"
-print "@font-face {\n    font-family: Yataghan;\n    src: url('../Fonts/yataghan.ttf');\n }"
-print "@font-face {\n    font-family: Akashi;\n    src: url('../Fonts/akashi.ttf');\n }"
-print "p {\n    text-align: left;\n      text-indent: 0;\n    margin-bottom: .5em;\n  }\n  h1,h2,h3 {\n    font-family: Yataghan; text-align: center; margin-top: 3em; margin-bottom: .5em;    clear: both;  }" 
-print "p.blockquote {\n    text-align: left;\n      text-indent: 0;\n    margin-bottom: .5em;\n    margin-left: .5in;\n    margin-right: .5in;  }" 
-print "</style>\n<head>\n<body>"
+print "<link href=\"../Styles/ebook.css\" rel=\"stylesheet\" type=\"text/css\"/>"
+print "\n<head>\n<body>"
 
 print "<h1>Contents</h1>"
 print "<ul>"
@@ -46,9 +43,11 @@ for chapter in soup.findAll("h1"):
 print "</ul>"
 print "<hr class=\"sigilChapterBreak\" />"
 
-print "<p style=\"font-family: Akashi; text-align: center; font-size: 3em; font-weight: bold\">"
+print "<p class=\"title\">"
 print soup.title.string
 print "</p>"
+
+print "<p class=\"author\">Author Name</p>"
 
 for tag in soup.findAll():
     if tag.name.lower() in blacklist:
