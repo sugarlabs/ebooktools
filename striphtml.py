@@ -35,6 +35,7 @@ print "\n<head>\n<body>"
 print "<h1>Contents</h1>"
 print "<ul>"
 print "<li><a href=\"TOC_0001.xhtml\">Title Page</a></li>"
+
 i = 1
 for chapter in soup.findAll("h1"):
     i = i + 1
