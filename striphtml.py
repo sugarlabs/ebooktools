@@ -27,9 +27,11 @@ whitelist = [
 soup = BeautifulSoup(open("input.html"))
 
 print "<html>\n<head>\n"
-print "<meta http-equiv=\"CONTENT-TYPE\" content=\"text/html; charset=UTF-8\">"
+print "<meta http-equiv=\"CONTENT-TYPE\" content=\"text/html; "
+print "charset=UTF-8\">"
 print soup.title
-print "<link href=\"../Styles/ebook.css\" rel=\"stylesheet\" type=\"text/css\"/>"
+print "<link href=\"../Styles/ebook.css\" rel=\"stylesheet\""
+print " type=\"text/css\"/>"
 print "\n<head>\n<body>"
 
 print "<h1>Contents</h1>"
@@ -57,7 +59,8 @@ for tag in soup.findAll():
         # blacklisted tags are removed in their entirety
         tag.extract()
     elif tag.name.lower() in striplist:
-        tag.attrs = [(a[0], a[1]) for a in tag.attrs if _attr_name_whitelisted(a[0],  a[1])]
+        tag.attrs = [(a[0], a[1]) 
+        for a in tag.attrs  if _attr_name_whitelisted(a[0],  a[1])]
     elif tag.name.lower() not in whitelist:
         # not a whitelisted tag. I'd like to remove it from the tree
         # and replace it with its children. But that's hard. It's much
