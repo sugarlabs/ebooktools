@@ -6,6 +6,8 @@ def _attr_name_whitelisted(attr_name,  attr_value):
         return True
     elif attr_name.lower() == "class" and attr_value == "blockquote":
         return True
+    elif attr_name.lower() == "src":
+        return True
     else:
         return False
 
@@ -18,7 +20,7 @@ whitelist = [
     "p", "br", "pre", "meta", 
     "table", "tbody", "thead", "tr", "td", "a",
     "blockquote", "h1", "h2",  "h3",  "h4", 
-    "ul", "li",  
+    "ul", "li",  "img", 
     "b", "em", "i", "strong", "u"                 
     ]
 
