@@ -4,23 +4,23 @@ from BeautifulSoup import  BeautifulSoup
 def _attr_name_whitelisted(attr_name,  attr_value):
     if attr_name.lower() == "align" and attr_value.lower() == "center":
         return True
-    elif attr_name.lower() == "class" and attr_value == "blockquote":
-        return True
-    elif attr_name.lower() == "src":
-        return True
     else:
         return False
 
-# remove these tags, complete with contents.
-blacklist = ["head" ]
-    
+# remove these tags, complete with their contents.
+blacklist = ["head",  "img", "pre" ]
+
+# remove attributes from these tags, except
+# those whitelisted.
 striplist = [ "p",  "h1",  "h2",  "h3" ]
 
+#  Anything not in this list will be replaced with <span> 
+# tags with no attributes.
 whitelist = [
     "p", "br", "pre", "meta", 
-    "table", "tbody", "thead", "tr", "td", "a",
-    "blockquote", "h1", "h2",  "h3",  "h4", 
-    "ul", "li",  "img", 
+    "table", "tbody", "thead", "tr", "td", 
+    "blockquote", "h1", "h2",  "h3", 
+    "ul", "li",   
     "b", "em", "i", "strong", "u"                 
     ]
 
