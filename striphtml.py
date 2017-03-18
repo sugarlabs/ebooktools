@@ -8,7 +8,7 @@ def _attr_name_whitelisted(attr_name,  attr_value):
         return False
 
 # remove these tags, complete with their contents.
-blacklist = ["head",  "img", "pre" ]
+blacklist = ["head"  ]
 
 # remove attributes from these tags, except
 # those whitelisted.
@@ -17,10 +17,10 @@ striplist = [ "p",  "h1",  "h2",  "h3" ]
 #  Anything not in this list will be replaced with <span> 
 # tags with no attributes.
 whitelist = [
-    "p", "br", "pre", "meta", 
+    "p", "br", "meta", "pre",  "img", 
     "table", "tbody", "thead", "tr", "td", 
     "blockquote", "h1", "h2",  "h3", 
-    "ul", "li",   
+    "ul", "li",   "ol", 
     "b", "em", "i", "strong", "u"                 
     ]
 
